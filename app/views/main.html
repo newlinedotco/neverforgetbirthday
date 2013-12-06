@@ -16,14 +16,11 @@
   <div class="col-md-6 col-sm-6 col-xs-6">
     <ul class="dealgrid">
       <li ng-repeat="deal in deals">
-        <a href="#/share/{{ deal.deal.id }}">
+        <a href="#/share/{{ deal.uuid }}">
           <h4>
-            {{ deal.deal.short_title }}
+            {{ deal.announcementTitle }}
           </h4>
-          <img ng-src="{{ deal.deal.image_url }}" />
-          <p>
-            Normally <span ng-bind="deal.deal.value"></span>, but today <span ng-bind="deal.deal.price"></span> (<span ng-bind="deal.deal.discount_amount"></span>% off)
-          </p>
+          <img ng-src="{{ deal.grid6ImageUrl }}" />
         </a>
       </li>
     </ul>

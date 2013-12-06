@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>groupon.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="app.html">
+                app.js
+              </a>
+            
+              
+              <a class="source" href="main.html">
+                main.js
+              </a>
+            
+              
+              <a class="source" href="share.html">
+                share.js
+              </a>
+            
+              
+              <a class="source" href="auth.html">
+                auth.js
+              </a>
+            
+              
+              <a class="source" href="bootic.html">
+                bootic.js
+              </a>
+            
+              
+              <a class="source" href="facebook.html">
+                facebook.js
+              </a>
+            
+              
+              <a class="source" href="flicker.html">
+                flicker.js
+              </a>
+            
+              
+              <a class="source" href="groupon.html">
+                groupon.js
+              </a>
+            
+              
+              <a class="source" href="sqoot.html">
+                sqoot.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>groupon.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>angular.module(<span class="string">'alGroupon'</span>, [])
+.provider(<span class="string">'Groupon'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">var</span> api_key = <span class="string">''</span>,
+      baseUrl = <span class="string">'http://api.groupon.com/v2'</span>;
+
+  <span class="keyword">this</span>.setApiKey = <span class="function"><span class="keyword">function</span><span class="params">(key)</span> {</span>
+    api_key = key || api_key
+  }
+
+  <span class="keyword">this</span>.$get = <span class="function"><span class="keyword">function</span><span class="params">($q, $http)</span> {</span>
+    <span class="keyword">var</span> service = {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Get all deals</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      getDeals: <span class="function"><span class="keyword">function</span><span class="params">(conf)</span> {</span>
+        <span class="keyword">var</span> d = $q.defer();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Ensure we have a config option</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        conf = conf || {}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Set the callback and the client_id
+in the config object</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        conf[<span class="string">'callback'</span>] = <span class="string">'JSON_CALLBACK'</span>;
+        conf[<span class="string">'client_id'</span>] = api_key</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Execute the request in the background</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        $http({
+          method: <span class="string">'JSONP'</span>,
+          url: baseUrl + <span class="string">'/deals.json'</span>,
+          params: conf
+        }).success(<span class="function"><span class="keyword">function</span><span class="params">(data)</span> {</span>
+          d.resolve(data);
+        }).error(<span class="function"><span class="keyword">function</span><span class="params">(reason)</span> {</span>
+          d.reject(reason);
+        })
+        <span class="keyword">return</span> d.promise;
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2 id="get-a-deal-by-id">Get a deal by ID</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      getDeal: <span class="function"><span class="keyword">function</span><span class="params">(id)</span> {</span>
+        <span class="keyword">var</span> d = $q.defer();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Execute the request</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        $http.jsonp(baseUrl + <span class="string">'/deals/'</span> + id + <span class="string">'.json'</span>, {
+          params: {
+            client_id: api_key,
+            callback: <span class="string">'JSON_CALLBACK'</span>
+          }
+        })
+        .success(<span class="function"><span class="keyword">function</span><span class="params">(data)</span> {</span>
+          d.resolve(data.deal);
+        }).error(<span class="function"><span class="keyword">function</span><span class="params">(reason)</span> {</span>
+          d.reject(reason);
+        });
+        <span class="keyword">return</span> d.promise;
+      }
+    }
+
+    <span class="keyword">return</span> service;
+  }
+
+})</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

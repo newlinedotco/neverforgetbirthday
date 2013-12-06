@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bdayApp')
-  .controller('MainCtrl', function($scope, $filter, FB, Sqoot) {
+  .controller('MainCtrl', function($scope, $filter, FB, Groupon) {
     $scope.login = function() {
       FB.login('user_birthday,user_about_me,user_checkins,friends_checkins')
       .then(function(resp) {
@@ -24,7 +24,7 @@ angular.module('bdayApp')
       profile['birthday'] = new Date(year, month, day);
       profile['formatted_birthday'] = $filter('date')(profile['birthday'], 'MMMM d');
       $scope.profile = profile;
-      Sqoot.getDeals({
+      Groupon.getDeals({
         location: profile.location.name,
         radius: 50
       }).then(function(data) {

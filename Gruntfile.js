@@ -57,6 +57,14 @@ module.exports = function (grunt) {
         }]
       }
     },
+    docco: {
+      debug: {
+        src: ['app/scripts/**/*.js'],
+        options: {
+          output: 'docs/'
+        }
+      }
+    },
     connect: {
       options: {
         port: 9000,

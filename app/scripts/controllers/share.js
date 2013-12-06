@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('bdayApp')
-  .controller('ShareCtrl', function($scope, $routeParams, FB, Sqoot) {
+  .controller('ShareCtrl', function($scope, $routeParams, FB, Groupon) {
 
-    console.log($routeParams);
-    Sqoot.getDeal($routeParams.idx)
+    Groupon.getDeal($routeParams.idx)
     .then(function(deal) {
       $scope.deal = deal;
       FB.getFriends({
