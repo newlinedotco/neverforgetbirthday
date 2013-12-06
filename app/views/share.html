@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-4">
+    <h1>Share with friends</h1>
+    <form>
+      <input type="text"
+        ng-model="q.search"
+        placeholder="Find a friend">
+      <ul>
+        <li bindonce 
+          ng-repeat="friend in friends | filter:q.search">
+          <span ng-click="shareWith(friend.id)" 
+              class="btn" 
+              bo-text="friend.name"></span>
+        </li>
+      </ul>
+    </form>
+  </div>
+
+  <div class="col-md-8">
+    <div class="row">
+      <h1 ng-bind="deal.title"></h1>
+      <div class="row">
+        <img class="col-md-4" ng-src="{{deal.image_url}}" />
+        <p class="col-md-8" ng-bind="deal.description"></p>
+      </div>
+    </div>
+
+  </div>
+</div>

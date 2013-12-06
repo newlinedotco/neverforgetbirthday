@@ -1,0 +1,32 @@
+<button 
+  class="btn btn-primary"
+  ng-show="!userLoggedIn" 
+  ng-click="login()">Login</button>
+<button 
+  class="btn btn-warning"
+  ng-show="userLoggedIn" 
+  ng-click="logout()">Logout</button>
+
+<div class="row">
+  <div class="col-md-2 col-sm-2 col-xs-2">
+    <h3 ng-bind="profile.name"></h3>
+    <h4 ng-bind="profile.formatted_birthday"></h4>
+  </div>
+
+  <div class="col-md-6 col-sm-6 col-xs-6">
+    <ul class="dealgrid">
+      <li ng-repeat="deal in deals">
+        <a href="#/share/{{ deal.deal.id }}">
+          <h4>
+            {{ deal.deal.short_title }}
+          </h4>
+          <img ng-src="{{ deal.deal.image_url }}" />
+          <p>
+            Normally <span ng-bind="deal.deal.value"></span>, but today <span ng-bind="deal.deal.price"></span> (<span ng-bind="deal.deal.discount_amount"></span>% off)
+          </p>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</div>
