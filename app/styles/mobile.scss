@@ -1,0 +1,50 @@
+body {
+  background-color: red;
+}
+
+.content {
+  padding: 0;
+  margin: 0;
+}
+
+.pagination {
+  display: none;
+}
+
+.sidebar {
+  display: none;
+}
+
+.swipe-animation {
+  &.ng-animate.slide-left {
+    animation: slideLeftEnter 0.5s;
+    -webkit-animation: slideLeftEnter 0.5s;
+  }
+  &.ng-animate.slide-left.slide-left-remove {
+    animation: slideLeftLeave 0.5s;
+    -webkit-animation: slideLeftLeave 0.5s;
+  }
+  &.ng-animate.slide-right {
+    -webkit-animation: slideRightEnter 0.5s;
+  }
+  &.ng-animate.slide-right.slide-right-remove {
+    -webkit-animation: slideRightLeave 0.5s;
+  }
+}
+
+@-webkit-keyframes slideLeftEnter {
+  0% { -webkit-transform: translateX(100%); }
+  100% { -webkit-transform: translateX(0); }
+}
+@-webkit-keyframes slideLeftLeave {
+  0% { -webkit-transform: translateX(0); }
+  100% { -webkit-transform: translateX(-100%); }
+}
+@-webkit-keyframes slideRightEnter {
+  0% { -webkit-transform: translateX(-100%); }
+  100% { -webkit-transform: translateX(0); }
+}
+@-webkit-keyframes slideRightLeave {
+  0% { -webkit-transform: translateX(0); }
+  100% { -webkit-transform: translateX(100%); }
+}

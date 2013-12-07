@@ -30,7 +30,12 @@ angular.module('bdayApp', [
       // We also define a share page
       .when('/share/:idx', {
         templateUrl: 'views/share.html',
-        controller: 'ShareCtrl'
+        controller: 'ShareCtrl',
+        resolve: {
+          shareUser: function($route, FB) {
+            return FB.getUser($route.current.params.idx);
+          }
+        }
       })
       // Otherwise we'll set our homepage
       .otherwise({
@@ -50,8 +55,7 @@ angular.module('bdayApp', [
     GrouponProvider.setApiKey('01989e50ac648b3056ccc30231300f14c5da8c90');
   })
   .config(function(TouchDeviceProvider) {
-    if (Modernizr.touch)
-      TouchDeviceProvider.setTouchDevice();
+    if (Modernizr.touch) TouchDeviceProvider.setTouchDevice();
   })
   .run(function() {
     FastClick.attach(document.body);

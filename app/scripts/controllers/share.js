@@ -1,23 +1,17 @@
 'use strict';
 
 angular.module('bdayApp')
-  .controller('ShareCtrl', function($scope, $routeParams, FB, Groupon) {
+  .controller('ShareCtrl', function($scope, $routeParams, shareUser, FB, Groupon) {
+    var conf = {};
 
-    FB.getUser($routeParams.idx)
-    .then(function(user) {
-      var conf = {};
-
-      if (user.location) {
-        conf['location'] = user.location.name;
-      }
-      Groupon.getDeals(conf)
-      .then(function(deal) {
-        $scope.deals = deal.deals;
-      });
-      $scope.user = user;
-    })
-
-    console.log(Modernizr.touch);
+    if (shareUser.location) {
+      conf['location'] = shareUser.location.name;
+    }
+    Groupon.getDeals(conf)
+    .then(function(deal) {
+      $scope.deals = deal.deals;
+    });
+    $scope.user = shareUser;
 
     $scope.shareWith = function(id) {
       var conf = {
@@ -25,7 +19,6 @@ angular.module('bdayApp')
         link: $scope.deal.untracked_url,
         to: id
       }
-      console.log(conf, $scope.deal);
       FB.ui(conf);
     }
 

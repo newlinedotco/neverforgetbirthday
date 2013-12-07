@@ -1,10 +1,10 @@
-<div class="row">  
-
-  <h1>Deals near {{ user.name }}</h1>
-  <div class="col-md-8 col-lg-8 deal" 
-    ng-repeat="deal in deals">
+<ul class="list">
+  <li class="list-divider">
+    Deals near <span ng-bind="user.name"</span>
+  </li>
+  <li ng-repeat="deal in deals">
     <h3 ng-bind="deal.title"></h3>
-    <div class="details">
+<!--     <div class="details">
       <img 
         ng-src="{{ deal.grid6ImageUrl }}"
         ng-if="!touch" />
@@ -12,7 +12,6 @@
         ng-src="{{ deal.mediumImageUrl }}"
         ng-if="touch" />
       <p ng-bind="deal.description"></p>
-    </div>
-  </div>
-
-</div>
+    </div> -->
+  </li>
+</ul>

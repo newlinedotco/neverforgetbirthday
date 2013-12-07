@@ -184,11 +184,17 @@ angular.module('alFacebook', [])
         });
         return d.promise;
       },
+      // Get more details about a facebook user
+      // by their id or their username
+      // 
+      // Usage:
+      // FB.getUser(1234567)
       getUser: function(id) {
         var d = $q.defer();
         FBService.then(function(fb) {
           fb.api('/' + id, function(resp) {
-            d.resolve(resp);
+            if (resp.error) d.reject(resp);
+            else d.resolve(resp);
           });
         })
         return d.promise;

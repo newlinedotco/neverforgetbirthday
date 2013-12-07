@@ -11,11 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="fragment" content="!" />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
-        <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="bower_components/bootstrap-sass/dist/css/bootstrap.css">
-        <link rel="stylesheet" href="styles/main.css">
-        <!-- endbuild -->
 </head>
   <body ng-app="bdayApp" ng-controller="FrameCtrl">
     <!--[if lt IE 7]>
@@ -26,70 +21,58 @@
       <script src="bower_components/es5-shim/es5-shim.js"></script>
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
-    <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#/">NeverForget<span class="strap">Birthday</span></a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="#/">Home</a></li>
-                    <li>
-                        <a class=""
-                          ng-show="!userLoggedIn" 
-                          ng-click="login()">Login</a>
-                    </li>
-                    <li>
-                        <a class=""
-                          ng-show="userLoggedIn" 
-                          ng-click="logout()">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <!-- Splash screen -->
+    <div class="splash" ng-cloak>
+        <p>Loading...</p>
     </div>
+    
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+
+    <!-- build:css(.tmp) styles/mobile.css -->
+    <link rel="stylesheet" media="screen and (max-width: 979px)" href="bower_components/ratchet/dist/ratchet.css">
+    <link rel="stylesheet" media="screen and (max-width: 979px)" href="styles/mobile.css">
+    <!-- endbuild -->
+
+    <!-- build:css(.tmp) styles/desktop.css -->
+    <link rel="stylesheet" media="screen and (min-width: 979px)" href="styles/desktop.css">
+    <!-- endbuild -->
+    
+    <header class="bar-title">
+      <a class="button-prev" 
+        href="#/"
+        ng-show="hasPrevPage()">Previous
+      </a>
+      <h1 class="title">
+        <a href="#/">Mobile</a>
+      </h1>
+      <a ng-show="!userLoggedIn"
+        ng-click="login()"
+        class="button">Login</a>
+      <a ng-show="userLoggedIn"
+        ng-click="logout()"
+        class="button">Logout</a>
+    </header>
+
     <!-- Add your site or application content here -->
-    <div class="content-area container" ng-view=""></div>
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
-
+    <div class="content" ng-view=""></div>
+        
+        <!-- build:js scripts/core.js -->
         <script src="bower_components/jquery/jquery.js"></script>
         <script src="bower_components/angular/angular.js"></script>
         <script src="scripts/vendor/modernizr.js"></script>
+        <!-- endbuild -->
 
         <!-- build:js scripts/plugins.js -->
-        <script src="bower_components/bootstrap-sass/js/affix.js"></script>
-        <script src="bower_components/bootstrap-sass/js/alert.js"></script>
         <script src="bower_components/bootstrap-sass/js/dropdown.js"></script>
-        <script src="bower_components/bootstrap-sass/js/tooltip.js"></script>
-        <script src="bower_components/bootstrap-sass/js/modal.js"></script>
-        <script src="bower_components/bootstrap-sass/js/transition.js"></script>
         <script src="bower_components/bootstrap-sass/js/button.js"></script>
-        <script src="bower_components/bootstrap-sass/js/popover.js"></script>
-        <script src="bower_components/bootstrap-sass/js/carousel.js"></script>
-        <script src="bower_components/bootstrap-sass/js/scrollspy.js"></script>
         <script src="bower_components/bootstrap-sass/js/collapse.js"></script>
-        <script src="bower_components/bootstrap-sass/js/tab.js"></script>
         <!-- endbuild -->
 
         <!-- build:js scripts/modules.js -->
         <script src="bower_components/angular-resource/angular-resource.js"></script>
         <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
         <script src="bower_components/angular-route/angular-route.js"></script>
         <script src="bower_components/angular-bindonce/bindonce.js"></script>
         <script src="bower_components/angular-touch/angular-touch.js"></script>

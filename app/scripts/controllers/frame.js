@@ -1,13 +1,12 @@
 'use strict';
 
 angular.module('bdayApp')
-  .controller('FrameCtrl', function ($scope, FB, TouchDevice) {
+  .controller('FrameCtrl', function ($scope, $location, FB, TouchDevice) {
     $scope.touch = TouchDevice;
 
     $scope.login = function() {
       FB.login('user_birthday,user_about_me,user_checkins,friends_checkins')
       .then(function(resp) {
-        console.log("GOT", resp);
         $scope.userLoggedIn = true;
       })
     }
@@ -24,4 +23,10 @@ angular.module('bdayApp')
         $scope.profile = {}
       })
     }
+
+    $scope.hasPrevPage = function() {
+      if ($location.path() != "/") return true;
+      return false;
+    }
+
   });
