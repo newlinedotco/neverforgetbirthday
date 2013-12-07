@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>bootic.js</title>
+  <title>frame.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -86,7 +86,7 @@
         
           <li id="title">
               <div class="annotation">
-                  <h1>bootic.js</h1>
+                  <h1>frame.js</h1>
               </div>
           </li>
         
@@ -101,33 +101,33 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre>angular.module(<span class="string">'bootic'</span>, [])
-.provider(<span class="string">'Bootic'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-  <span class="keyword">this</span>.url = <span class="string">'https://thebootic-bootic-product-search.p.mashape.com/'</span>
+            <div class="content"><div class='highlight'><pre><span class="string">'use strict'</span>;
 
-  <span class="keyword">this</span>.$get = <span class="function"><span class="keyword">function</span><span class="params">($q, $http)</span> {</span>
-    <span class="keyword">var</span> service = {
-      search: <span class="function"><span class="keyword">function</span><span class="params">(query, conf)</span> {</span>
-        <span class="keyword">var</span> d = $q.defer();
-        conf = conf || {};
-        $http({
-          method: <span class="string">'GET'</span>,
-          url: self.url + <span class="string">'/products'</span>,
-          params: {
-            <span class="string">'q'</span>: query,
-            <span class="string">'limit'</span>: conf.limit || <span class="number">50</span>,
-            <span class="string">'offset'</span>: conf.offset || <span class="number">100</span>,
-            <span class="string">'price_max'</span>: conf.price_max || <span class="number">100</span>
-          },
-          headers: {
-          }
-        })
-        <span class="keyword">return</span> d.promise;
-      }
-    };
-    <span class="keyword">return</span> service;
-  }
-})</pre></div></div>
+angular.module(<span class="string">'bdayApp'</span>)
+  .controller(<span class="string">'FrameCtrl'</span>, <span class="function"><span class="keyword">function</span> <span class="params">($scope, FB, TouchDevice)</span> {</span>
+    $scope.touch = TouchDevice;
+
+    $scope.login = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+      FB.login(<span class="string">'user_birthday,user_about_me,user_checkins,friends_checkins'</span>)
+      .then(<span class="function"><span class="keyword">function</span><span class="params">(resp)</span> {</span>
+        console.log(<span class="string">"GOT"</span>, resp);
+        $scope.userLoggedIn = <span class="literal">true</span>;
+      })
+    }
+    FB.loggedIn().then(<span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+      $scope.userLoggedIn = <span class="literal">true</span>;
+    }, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+      $scope.userLoggedIn = <span class="literal">false</span>;
+    });
+
+    $scope.logout = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+      FB.logout()
+      .then(<span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+        $scope.userLoggedIn = <span class="literal">false</span>;
+        $scope.profile = {}
+      })
+    }
+  });</pre></div></div>
             
         </li>
         

@@ -10,6 +10,9 @@
 angular.module('bdayApp', [
   'ngCookies',
   'ngRoute',
+  'ngTouch',
+  'ngAnimate',
+  'alTouchDevice',
   'alFacebook',
   'alGroupon',
   'pasvaz.bindonce'
@@ -45,4 +48,11 @@ angular.module('bdayApp', [
   })
   .config(function(GrouponProvider) {
     GrouponProvider.setApiKey('01989e50ac648b3056ccc30231300f14c5da8c90');
+  })
+  .config(function(TouchDeviceProvider) {
+    if (Modernizr.touch)
+      TouchDeviceProvider.setTouchDevice();
+  })
+  .run(function() {
+    FastClick.attach(document.body);
   })

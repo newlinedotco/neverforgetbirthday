@@ -24,6 +24,11 @@
               </a>
             
               
+              <a class="source" href="frame.html">
+                frame.js
+              </a>
+            
+              
               <a class="source" href="main.html">
                 main.js
               </a>
@@ -63,6 +68,16 @@
                 sqoot.js
               </a>
             
+              
+              <a class="source" href="touch_device.html">
+                touch_device.js
+              </a>
+            
+              
+              <a class="source" href="modernizr.html">
+                modernizr.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -91,16 +106,21 @@
 angular.module(<span class="string">'bdayApp'</span>)
   .controller(<span class="string">'ShareCtrl'</span>, <span class="function"><span class="keyword">function</span><span class="params">($scope, $routeParams, FB, Groupon)</span> {</span>
 
-    Groupon.getDeal($routeParams.idx)
-    .then(<span class="function"><span class="keyword">function</span><span class="params">(deal)</span> {</span>
-      $scope.deal = deal;
-      FB.getFriends({
-        fields: <span class="string">'username,id,name'</span>
-      })
-      .then(<span class="function"><span class="keyword">function</span><span class="params">(friends)</span> {</span>
-        $scope.friends = friends;
-      })
-    });
+    FB.getUser($routeParams.idx)
+    .then(<span class="function"><span class="keyword">function</span><span class="params">(user)</span> {</span>
+      <span class="keyword">var</span> conf = {};
+
+      <span class="keyword">if</span> (user.location) {
+        conf[<span class="string">'location'</span>] = user.location.name;
+      }
+      Groupon.getDeals(conf)
+      .then(<span class="function"><span class="keyword">function</span><span class="params">(deal)</span> {</span>
+        $scope.deals = deal.deals;
+      });
+      $scope.user = user;
+    })
+
+    console.log(Modernizr.touch);
 
     $scope.shareWith = <span class="function"><span class="keyword">function</span><span class="params">(id)</span> {</span>
       <span class="keyword">var</span> conf = {

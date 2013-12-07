@@ -1,0 +1,41 @@
+@mixin respond-to($media) {
+  // Landscape phones and down
+  // media-type code: phone
+  @if $media == phone {
+    @media (max-width: 480px) {
+      @content;
+    }
+  }
+ 
+  // Landscape phone to portrait tablet
+  // media-type code: subtablet
+  @else if $media == subtablet {
+    @media (min-width: 481px) and (max-width: 767px) {
+      @content;
+    }
+  }
+ 
+  // Portrait tablet to landscape and desktop
+  // repsonsive code: tablet
+  @else if $media == tablet {
+    @media (min-width: 768px) and (max-width: 979px) {
+      @content;
+    }
+  }
+ 
+  // Default: Desktop
+  // media-type code: desktop
+  @else if $media == desktop {
+    @media (min-width: 980px) and (max-width: 1209px) {
+      @content;
+    }
+  }
+ 
+  // Large desktop
+  // media-type code: large-desktop
+  @else if $media == large-desktop {
+    @media (min-width: 1210px) {
+      @content;
+    }
+  }
+}

@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>bootic.js</title>
+  <title>touch_device.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -86,7 +86,7 @@
         
           <li id="title">
               <div class="annotation">
-                  <h1>bootic.js</h1>
+                  <h1>touch_device.js</h1>
               </div>
           </li>
         
@@ -101,32 +101,14 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre>angular.module(<span class="string">'bootic'</span>, [])
-.provider(<span class="string">'Bootic'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-  <span class="keyword">this</span>.url = <span class="string">'https://thebootic-bootic-product-search.p.mashape.com/'</span>
-
-  <span class="keyword">this</span>.$get = <span class="function"><span class="keyword">function</span><span class="params">($q, $http)</span> {</span>
-    <span class="keyword">var</span> service = {
-      search: <span class="function"><span class="keyword">function</span><span class="params">(query, conf)</span> {</span>
-        <span class="keyword">var</span> d = $q.defer();
-        conf = conf || {};
-        $http({
-          method: <span class="string">'GET'</span>,
-          url: self.url + <span class="string">'/products'</span>,
-          params: {
-            <span class="string">'q'</span>: query,
-            <span class="string">'limit'</span>: conf.limit || <span class="number">50</span>,
-            <span class="string">'offset'</span>: conf.offset || <span class="number">100</span>,
-            <span class="string">'price_max'</span>: conf.price_max || <span class="number">100</span>
-          },
-          headers: {
-          }
-        })
-        <span class="keyword">return</span> d.promise;
-      }
-    };
-    <span class="keyword">return</span> service;
+            <div class="content"><div class='highlight'><pre>angular.module(<span class="string">'alTouchDevice'</span>, [])
+.provider(<span class="string">'TouchDevice'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">var</span> deviceType = <span class="literal">false</span>;
+  <span class="keyword">this</span>.setTouchDevice = <span class="function"><span class="keyword">function</span><span class="params">(t)</span> {</span>
+    deviceType = <span class="literal">true</span>;
   }
+
+  <span class="keyword">this</span>.$get = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span><span class="keyword">return</span> deviceType;}
 })</pre></div></div>
             
         </li>

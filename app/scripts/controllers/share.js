@@ -3,16 +3,21 @@
 angular.module('bdayApp')
   .controller('ShareCtrl', function($scope, $routeParams, FB, Groupon) {
 
-    Groupon.getDeal($routeParams.idx)
-    .then(function(deal) {
-      $scope.deal = deal;
-      FB.getFriends({
-        fields: 'username,id,name'
-      })
-      .then(function(friends) {
-        $scope.friends = friends;
-      })
-    });
+    FB.getUser($routeParams.idx)
+    .then(function(user) {
+      var conf = {};
+
+      if (user.location) {
+        conf['location'] = user.location.name;
+      }
+      Groupon.getDeals(conf)
+      .then(function(deal) {
+        $scope.deals = deal.deals;
+      });
+      $scope.user = user;
+    })
+
+    console.log(Modernizr.touch);
 
     $scope.shareWith = function(id) {
       var conf = {

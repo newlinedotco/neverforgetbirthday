@@ -8,14 +8,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title></title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="fragment" content="!" />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
         <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="bower_components/bootstrap-sass/dist/css/bootstrap.css">
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
 </head>
-  <body ng-app="bdayApp">
+  <body ng-app="bdayApp" ng-controller="FrameCtrl">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -24,10 +26,35 @@
       <script src="bower_components/es5-shim/es5-shim.js"></script>
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
-
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#/">NeverForget<span class="strap">Birthday</span></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="#/">Home</a></li>
+                    <li>
+                        <a class=""
+                          ng-show="!userLoggedIn" 
+                          ng-click="login()">Login</a>
+                    </li>
+                    <li>
+                        <a class=""
+                          ng-show="userLoggedIn" 
+                          ng-click="logout()">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <!-- Add your site or application content here -->
-    <a href="#/">Home</a>
-    <div class="container" ng-view=""></div>
+    <div class="content-area container" ng-view=""></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -40,8 +67,9 @@
        ga('send', 'pageview');
     </script>
 
-    <script src="bower_components/jquery/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/jquery/jquery.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="scripts/vendor/modernizr.js"></script>
 
         <!-- build:js scripts/plugins.js -->
         <script src="bower_components/bootstrap-sass/js/affix.js"></script>
@@ -64,16 +92,20 @@
         <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
         <script src="bower_components/angular-route/angular-route.js"></script>
         <script src="bower_components/angular-bindonce/bindonce.js"></script>
+        <script src="bower_components/angular-touch/angular-touch.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/fastclick/lib/fastclick.js"></script>
         <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/services/facebook.js"></script>
         <script src="scripts/services/sqoot.js"></script>
         <script src="scripts/services/groupon.js"></script>
-        <script src="scripts/services/auth.js"></script>
+        <script src="scripts/services/touch_device.js"></script>
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/share.js"></script>
+        <script src="scripts/controllers/frame.js"></script>
         <!-- endbuild -->
 </body>
 </html>

@@ -1,13 +1,23 @@
 angular.module('alFacebook', [])
+// FBService
+// ---------------------
+// 
+// The FBService is responsible for loading 
+// the Facebook JavaScript SDK
+// and that's all
+// It serves the FB window object in the form
+// of a promise.
+// 
+// We can get access to the FB object through this
+// service by:
+// 
+//  FBService.then(function(FB) {
+//    FB.api(//...
+//  })
 .provider('FBService', function() {
-  var _asyncLoading = false
-  , _scriptUrl = '//connect.facebook.net/en_US/all.js'
+  var _scriptUrl = '//connect.facebook.net/en_US/all.js'
   , _scriptId = 'facebook-jssdk'
-  , _fbConfig = null
-  , _channelUrl = 'app/channel.html'
-  , _status = true
-  , _cookie = true
-  , _xfbml = true;
+  , _fbConfig = null;
 
   this.init = function(config) {
     _fbConfig = config || _fbConfig;
@@ -28,60 +38,96 @@ angular.module('alFacebook', [])
         callback();
       }
     }
+    // Set the callback to be run
+    // after the scriptTag has loaded
     scriptTag.onload = callback;
+    // Attach the script tag to the document body
     var s = $document.getElementsByTagName('body')[0];
         s.appendChild(scriptTag);
   }
 
+  // Create the FBService method
+  // injecting the `$document`, `$timeout`, 
+  // `$q`, `$rootScope`, and `$window` services
   this.$get = function($document, $timeout, $q, $rootScope, $window) {
     var  deferred = $q.defer(),
       _FB = $window.FB,
       self = this;
 
-    function successFN() {
+    // Create a `fbAsyncInit` method that gets
+    // called by the Facebook SDK after it is loaded
+    function onSuccess() {
      $window.fbAsyncInit = function() {
        // Executed when the SDK is loaded
        FB.init(_fbConfig);
      };
     }
 
-    deferred.isPromise = true;
-
      // Load client in the browser
+     // which will get called after the script
+     // tag has been loaded
     var onScriptLoad = function(callback) {
-      successFN();
+      onSuccess();
       $timeout(function() {
+        // Resolve the deferred promise
+        // as the FB object on the window
         deferred.resolve($window.FB);
       });
     };
 
+    // Kick it off and get Facebooking
     createScript($document[0], onScriptLoad);
     return deferred.promise;
    }
 })
+// The FB Service
+// -----------------
+// 
+// This service wraps the FB object in more helpful
+// methods that are more angular-friendly with promises
+// 
+// It attaches to the `auth.authResponseChange` event
+// fired by the FB object on instantiation, so
+// we'll be able to detect if the user is logged in
+// or not immediately.
 .provider('FB', function() {
+  // Define the service
   this.$get = function($rootScope, $q, FBService) {
+    // We'll create a `loginDefer` object that
+    // will enable us to depend upon the user
+    // being logged in when this resolves.
+    // Anytime that we have a method that needs
+    // to have a valid user, we'll wait for the promise
+    // to resolve
     var loginDefer = $q.defer(),
         loginPromise = loginDefer.promise;
 
-    // On init
+    // On init, we'll attach to the 
+    // `auth.authResponseChange` event
+    // If the auth status comes back with a status
+    // of `connected`, then we'll resolve the
+    // login defer object immediately
     FBService.then(function(fb) {
       fb.Event.subscribe('auth.authResponseChange', 
         function(res) {
           if (res.status === 'connected') {
             loginDefer.resolve(res);
           }
-        }
-      )
+        })
     });
 
+    // Define the service object
     var service = {
       login: function(scope) {
+        loginDefer = $q.defer();
+        loginPromise = loginDefer.promise;
+
         FBService.then(function(fb) {
           fb.Event.subscribe('auth.authResponseChange', 
             function(res) {
               if(res.status === 'connected') {
                 localStorage.setItem('auth', JSON.stringify(res));
+                $rootScope.$broadcast('user:login');
                 loginDefer.resolve(res);
               } else if (res.status === 'not_authorized') {
                 loginDefer.reject(res);
@@ -98,6 +144,7 @@ angular.module('alFacebook', [])
         var d = $q.defer();
         FBService.then(function(fb) {
           fb.logout(function(resp) {
+            $rootScope.$broadcast('user:logout');
             d.resolve(resp);
           });
         });
@@ -135,6 +182,15 @@ angular.module('alFacebook', [])
             })
           });
         });
+        return d.promise;
+      },
+      getUser: function(id) {
+        var d = $q.defer();
+        FBService.then(function(fb) {
+          fb.api('/' + id, function(resp) {
+            d.resolve(resp);
+          });
+        })
         return d.promise;
       },
       getCheckins: function(conf) {

@@ -1,29 +1,41 @@
-<button 
-  class="btn btn-primary"
-  ng-show="!userLoggedIn" 
-  ng-click="login()">Login</button>
-<button 
-  class="btn btn-warning"
-  ng-show="userLoggedIn" 
-  ng-click="logout()">Logout</button>
-
-<div class="row">
-  <div class="col-md-2 col-sm-2 col-xs-2">
-    <h3 ng-bind="profile.name"></h3>
-    <h4 ng-bind="profile.formatted_birthday"></h4>
+<div ng-show="!userLoggedIn">
+  <div class="jumbotron">
+    <h3>Welcome. Never forget a birthday gift again.</h3>
+    <p><a class="btn btn-primary btn-lg" ng-click="login()">Get started</a></p>
   </div>
+</div>
 
-  <div class="col-md-6 col-sm-6 col-xs-6">
-    <ul class="dealgrid">
-      <li ng-repeat="deal in deals">
-        <a href="#/share/{{ deal.uuid }}">
-          <h4>
-            {{ deal.announcementTitle }}
-          </h4>
-          <img ng-src="{{ deal.grid6ImageUrl }}" />
-        </a>
+<div ng-show="userLoggedIn">
+  <div id="sidebar">
+    <h3>Welcome. Never forget a birthday gift again.</h3>
+    <ul class="pagination">
+      <li class="disabled">
+        <a ng-click="prevPage()"><</a>
       </li>
+      <li><a ng-click="nextPage()">></a></li>
     </ul>
   </div>
 
+  <div ng-swipe-left="nextPage()"
+    ng-swipe-right="prevPage()"
+    ng-class="{
+      'swipe-animation': touch,
+      'slide-left': loading === 'next',
+      'slide-right': loading === 'prev'}"
+    >
+    <div id="team">
+      <div ng-show="loading" class="spinner">
+      </div>
+      <div ng-show="!loading" class="team_member" ng-repeat="friend in friends">
+        <a href="#/share/{{ friend.id }}">
+          <img ng-src="https://graph.facebook.com/{{ friend.id }}/picture?type=square" class="" alt="" />
+            <div class="details">
+              <h4 ng-bind="friend.name"></h4>
+              <small ng-bind="friend.formatted_birthday"></small>
+            </div>
+          </a>
+      </div>
+
+    </div>
+  </div>
 </div>

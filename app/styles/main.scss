@@ -2,21 +2,116 @@ $iconSpritePath: "../images/glyphicons-halflings.png";
 $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 
 @import "bootstrap-sass/lib/bootstrap";
+@import "_mixins";
 
 /* Put your CSS here */
-html, body {
-  margin: 20px;
-}
+html, body {}
 
 body {
-    background: #fafafa;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #333;
+  background: #fafafa;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
 }
 
-ul.photogrid {
-    margin: 0;
-    padding: 0;
-    li {
+.content-area {
+  margin-top: 70px;
+}
+
+#sidebar {
+  display: none;
+  @include respond-to(large-desktop){
+    @include make-lg-column(2);
+    display: block;
+  }
+}
+
+.spinner {
+  background-image: url('/images/spiffygif_68x68.gif');
+  background-repeat: no-repeat;
+  background-size: 68px;
+  height: 100px;
+  text-align: center;
+}
+
+/****Pagination***/
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+  background-color:#5c7fe3;
+  border-color:#5c7fe3;
+}
+
+#team{
+  @include make-lg-column(10);
+  .team_member {
+    @include make-row();
+    @include respond-to(large-desktop){
+      @include make-lg-column(3);
+      max-height: 90px;
+      overflow: hidden;
     }
+    @include respond-to(subtablet){}
+    @include respond-to(phone) {}
+    a {@include make-row();}
+    img {
+      padding: 0; margin: 0;
+      @include respond-to(large-desktop) {
+        @include make-lg-column(6);
+      }
+      @include respond-to(subtablet) {
+        @include make-xs-column(4);
+      }
+      @include respond-to(phone) {
+        @include make-xs-column(12);
+      }
+    }
+    .details {
+      padding: 0; margin: 0;
+      h4 {
+        padding: 0;margin: 0;
+      }
+      @include respond-to(large-desktop) {
+        @include make-lg-column(6);
+      }
+      @include respond-to(subtablet) {
+        @include make-xs-column(8);
+      }
+      @include respond-to(phone) {
+        @include make-xs-column(12);
+        border-bottom: 1px solid #333;
+      }
+    }
+  }
+}
+
+.swipe-animation {
+  &.ng-animate.slide-left {
+    animation: slideLeftEnter 0.5s;
+    -webkit-animation: slideLeftEnter 0.5s;
+  }
+  &.ng-animate.slide-left.slide-left-remove {
+    animation: slideLeftLeave 0.5s;
+    -webkit-animation: slideLeftLeave 0.5s;
+  }
+  &.ng-animate.slide-right {
+    -webkit-animation: slideRightEnter 0.5s;
+  }
+  &.ng-animate.slide-right.slide-right-remove {
+    -webkit-animation: slideRightLeave 0.5s;
+  }
+}
+
+@-webkit-keyframes slideLeftEnter {
+  0% { -webkit-transform: translateX(100%); }
+  100% { -webkit-transform: translateX(0); }
+}
+@-webkit-keyframes slideLeftLeave {
+  0% { -webkit-transform: translateX(0); }
+  100% { -webkit-transform: translateX(-100%); }
+}
+@-webkit-keyframes slideRightEnter {
+  0% { -webkit-transform: translateX(-100%); }
+  100% { -webkit-transform: translateX(0); }
+}
+@-webkit-keyframes slideRightLeave {
+  0% { -webkit-transform: translateX(0); }
+  100% { -webkit-transform: translateX(100%); }
 }

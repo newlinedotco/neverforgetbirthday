@@ -24,6 +24,11 @@
               </a>
             
               
+              <a class="source" href="frame.html">
+                frame.js
+              </a>
+            
+              
               <a class="source" href="main.html">
                 main.js
               </a>
@@ -61,6 +66,16 @@
               
               <a class="source" href="sqoot.html">
                 sqoot.js
+              </a>
+            
+              
+              <a class="source" href="touch_device.html">
+                touch_device.js
+              </a>
+            
+              
+              <a class="source" href="modernizr.html">
+                modernizr.js
               </a>
             
           </div>
@@ -108,6 +123,9 @@ library</p>
             <div class="content"><div class='highlight'><pre>angular.module(<span class="string">'bdayApp'</span>, [
   <span class="string">'ngCookies'</span>,
   <span class="string">'ngRoute'</span>,
+  <span class="string">'ngTouch'</span>,
+  <span class="string">'ngAnimate'</span>,
+  <span class="string">'alTouchDevice'</span>,
   <span class="string">'alFacebook'</span>,
   <span class="string">'alGroupon'</span>,
   <span class="string">'pasvaz.bindonce'</span>
@@ -219,6 +237,13 @@ homepage</p>
   })
   .config(<span class="function"><span class="keyword">function</span><span class="params">(GrouponProvider)</span> {</span>
     GrouponProvider.setApiKey(<span class="string">'01989e50ac648b3056ccc30231300f14c5da8c90'</span>);
+  })
+  .config(<span class="function"><span class="keyword">function</span><span class="params">(TouchDeviceProvider)</span> {</span>
+    <span class="keyword">if</span> (Modernizr.touch)
+      TouchDeviceProvider.setTouchDevice();
+  })
+  .run(<span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    FastClick.attach(document.body);
   })</pre></div></div>
             
         </li>
