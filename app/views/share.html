@@ -4,7 +4,7 @@
   </li>
   <li ng-repeat="deal in deals">
     <h3 ng-bind="deal.title"></h3>
-<!--     <div class="details">
+<div class="details">
       <img 
         ng-src="{{ deal.grid6ImageUrl }}"
         ng-if="!touch" />
@@ -12,6 +12,6 @@
         ng-src="{{ deal.mediumImageUrl }}"
         ng-if="touch" />
       <p ng-bind="deal.description"></p>
-    </div> -->
+    </div>
   </li>
 </ul>

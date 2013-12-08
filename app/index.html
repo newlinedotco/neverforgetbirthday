@@ -31,12 +31,12 @@
     <!-- endbuild -->
 
     <!-- build:css(.tmp) styles/mobile.css -->
-    <link rel="stylesheet" data-media="screen and (max-width: 979px)" data-href="bower_components/ratchet/dist/ratchet.css">
-    <link rel="stylesheet" data-media="screen and (max-width: 979px)" data-href="styles/mobile.css">
+    <link rel="stylesheet" data-media="screen and (max-width: 979px)" data-href="bower_components/ratchet/dist/ratchet.css" class="mediaquerydependent">
+    <link rel="stylesheet" data-media="screen and (max-width: 979px)" data-href="styles/mobile.css" class="mediaquerydependent">
     <!-- endbuild -->
 
     <!-- build:css(.tmp) styles/desktop.css -->
-    <link rel="stylesheet" data-media="screen and (min-width: 979px)" data-href="styles/desktop.css">
+    <link rel="stylesheet" data-media="screen and (min-width: 979px)" data-href="styles/desktop.css" class="mediaquerydependent">
     <!-- endbuild -->
     
     <header class="bar-title">
@@ -60,11 +60,10 @@
 
     <script>
       function mediaqueryload(){
-      var queriedresource = document.querySelectorAll('link'),
+      var queriedresource = document.querySelectorAll('.mediaquerydependent'),
           all = queriedresource.length,
           current = null,
           attr = null;
-          console.log("HISHDFHDF", all);
       while (all--) {
         current = queriedresource[all];
         if (  current.dataset.media &&
