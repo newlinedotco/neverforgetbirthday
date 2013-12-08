@@ -4,7 +4,7 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 @import "bootstrap-sass/lib/bootstrap";
 
 .content {
-  @include .container;
+  @extend .container;
 }
 
 .content-area {

@@ -12,11 +12,9 @@ body {
 #sidebar {
   display: none;
   @include respond-to(large-desktop){
-    @include make-lg-column(2);
     display: block;
   }
   @include respond-to(subtablet){
-    @include make-md-column(12);
     display: block;
     h3 {
       display: none;

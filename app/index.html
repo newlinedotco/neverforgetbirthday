@@ -31,12 +31,12 @@
     <!-- endbuild -->
 
     <!-- build:css(.tmp) styles/mobile.css -->
-    <link rel="stylesheet" media="screen and (max-width: 979px)" href="bower_components/ratchet/dist/ratchet.css">
-    <link rel="stylesheet" media="screen and (max-width: 979px)" href="styles/mobile.css">
+    <link rel="stylesheet" data-media="screen and (max-width: 979px)" data-href="bower_components/ratchet/dist/ratchet.css">
+    <link rel="stylesheet" data-media="screen and (max-width: 979px)" data-href="styles/mobile.css">
     <!-- endbuild -->
 
     <!-- build:css(.tmp) styles/desktop.css -->
-    <link rel="stylesheet" media="screen and (min-width: 979px)" href="styles/desktop.css">
+    <link rel="stylesheet" data-media="screen and (min-width: 979px)" data-href="styles/desktop.css">
     <!-- endbuild -->
     
     <header class="bar-title">
@@ -57,7 +57,29 @@
 
     <!-- Add your site or application content here -->
     <div class="content" ng-view=""></div>
-        
+
+    <script>
+      function mediaqueryload(){
+      var queriedresource = document.querySelectorAll('link'),
+          all = queriedresource.length,
+          current = null,
+          attr = null;
+          console.log("HISHDFHDF", all);
+      while (all--) {
+        current = queriedresource[all];
+        if (  current.dataset.media &&
+              window.matchMedia(current.dataset.media).matches) {
+          for (attr in current.dataset) {
+            if (attr !== 'media') {
+              current.setAttribute(attr, current.dataset[attr]);
+            }
+          }
+        }
+      }
+    }
+    mediaqueryload();
+    </script>
+
         <!-- build:js scripts/core.js -->
         <script src="bower_components/jquery/jquery.js"></script>
         <script src="bower_components/angular/angular.js"></script>
