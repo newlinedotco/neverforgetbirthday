@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bdayApp')
-  .controller('ShareCtrl', function($scope, $routeParams, shareUser, FB, Groupon) {
+  .controller('ShareCtrl', function($scope, $routeParams, shareUser, FB, Groupon, Session, $location) {
     var conf = {};
 
     if (shareUser.location) {
@@ -12,6 +12,11 @@ angular.module('bdayApp')
       $scope.deals = deal.deals;
     });
     $scope.user = shareUser;
+
+    $scope.setDeal = function(deal) {
+      Session.setCurrentDeal(deal);
+      Session.setCurrentUser($scope.user);
+    }
 
     $scope.shareWith = function(id) {
       var conf = {

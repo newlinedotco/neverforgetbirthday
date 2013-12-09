@@ -1,8 +1,12 @@
 'use strict';
 
 angular.module('bdayApp')
-  .controller('MainCtrl', function($scope, $filter, FB, Groupon) {
+  .controller('MainCtrl', function($rootScope, $scope, $filter, FB, Groupon) {
 
+    $scope.$on('user:login', function() {
+      updateFriends();
+      console.log("Working??????");
+    });
     // FB.getProfile()
     // .then(function(profile) {
     //   var split = profile.birthday.split('/'),
@@ -20,6 +24,7 @@ angular.module('bdayApp')
         if (offset < 0) offset = 0;
       }
       var updateFriends = function() {
+        console.log("updateFriends");
         sanitizeRequestFeatures();
         FB.getFriends({
           fields: 'name,birthday,id,picture,location',

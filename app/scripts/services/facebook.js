@@ -1,16 +1,16 @@
 angular.module('alFacebook', [])
 // FBService
 // ---------------------
-// 
-// The FBService is responsible for loading 
+//
+// The FBService is responsible for loading
 // the Facebook JavaScript SDK
 // and that's all
 // It serves the FB window object in the form
 // of a promise.
-// 
+//
 // We can get access to the FB object through this
 // service by:
-// 
+//
 //  FBService.then(function(FB) {
 //    FB.api(//...
 //  })
@@ -47,7 +47,7 @@ angular.module('alFacebook', [])
   }
 
   // Create the FBService method
-  // injecting the `$document`, `$timeout`, 
+  // injecting the `$document`, `$timeout`,
   // `$q`, `$rootScope`, and `$window` services
   this.$get = function($document, $timeout, $q, $rootScope, $window) {
     var  deferred = $q.defer(),
@@ -82,10 +82,10 @@ angular.module('alFacebook', [])
 })
 // The FB Service
 // -----------------
-// 
+//
 // This service wraps the FB object in more helpful
 // methods that are more angular-friendly with promises
-// 
+//
 // It attaches to the `auth.authResponseChange` event
 // fired by the FB object on instantiation, so
 // we'll be able to detect if the user is logged in
@@ -102,13 +102,13 @@ angular.module('alFacebook', [])
     var loginDefer = $q.defer(),
         loginPromise = loginDefer.promise;
 
-    // On init, we'll attach to the 
+    // On init, we'll attach to the
     // `auth.authResponseChange` event
     // If the auth status comes back with a status
     // of `connected`, then we'll resolve the
     // login defer object immediately
     FBService.then(function(fb) {
-      fb.Event.subscribe('auth.authResponseChange', 
+      fb.Event.subscribe('auth.authResponseChange',
         function(res) {
           if (res.status === 'connected') {
             loginDefer.resolve(res);
@@ -123,7 +123,7 @@ angular.module('alFacebook', [])
         loginPromise = loginDefer.promise;
 
         FBService.then(function(fb) {
-          fb.Event.subscribe('auth.authResponseChange', 
+          fb.Event.subscribe('auth.authResponseChange',
             function(res) {
               if(res.status === 'connected') {
                 localStorage.setItem('auth', JSON.stringify(res));
@@ -186,7 +186,7 @@ angular.module('alFacebook', [])
       },
       // Get more details about a facebook user
       // by their id or their username
-      // 
+      //
       // Usage:
       // FB.getUser(1234567)
       getUser: function(id) {

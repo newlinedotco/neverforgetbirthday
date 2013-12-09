@@ -1,12 +1,16 @@
 <div ng-show="!userLoggedIn">
-  <div class="jumbotron">
-    <h3>Welcome. Never forget a birthday gift again.</h3>
-    <p><a class="btn btn-primary btn-lg" ng-click="login()">Get started</a></p>
+  <div class="jumbotron welcome-hero">
+    <h1>Welcome. <span class="light">Never forget a birthday gift again.</span></h1>
+    <p>
+      <br>
+      <a class="button-main button-lg btn btn-lg btn-primary" ng-click="login()">Get started</a>
+    </p>
   </div>
 </div>
 
-<div ng-show="userLoggedIn">
-  <div id="sidebar">
+<div ng-show="userLoggedIn" class="row">
+
+  <div id="sidebar" class="welcome-hero col-xs-3">
     <h3>Welcome. Never forget a birthday gift again.</h3>
     <ul class="pagination">
       <li class="disabled">
@@ -22,11 +26,30 @@
       'swipe-animation': touch,
       'slide-left': loading === 'next',
       'slide-right': loading === 'prev'}"
+    class="col-xs-9"
     >
     <div id="team">
       <div ng-show="loading" class="spinner">
       </div>
-      <div ng-show="!loading" class="team_member" ng-repeat="friend in friends">
+
+
+      <ul class="list list-group" ng-show="!loading">
+        <li class="tile-photo list-group-item" ng-repeat="friend in friends">
+          <a href="#/share/{{ friend.id }}">
+
+            <img ng-src="https://graph.facebook.com/{{ friend.id }}/picture?type=square" class="round" alt="" />
+            <div class="details">
+              <h3 ng-bind="friend.name"></h3>
+              <small ng-bind="friend.formatted_birthday"></small>
+            </div>
+
+            <span class="chevron"></span>
+            <!-- <span class="count">4</span> -->
+          </a>
+        </li>
+      </ul>
+
+<!--       <div ng-show="!loading" class="team_member" ng-repeat="friend in friends">
         <a href="#/share/{{ friend.id }}">
           <img ng-src="https://graph.facebook.com/{{ friend.id }}/picture?type=square" class="" alt="" />
             <div class="details">
@@ -35,7 +58,10 @@
             </div>
           </a>
       </div>
-
+ -->
     </div>
   </div>
+
+
+
 </div>

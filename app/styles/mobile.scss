@@ -14,6 +14,13 @@ body {
   display: none;
 }
 
+.view-mobile {
+  display: block ;
+}
+.view-desktop {
+  display: none;
+}
+
 .swipe-animation {
   &.ng-animate.slide-left {
     animation: slideLeftEnter 0.5s;

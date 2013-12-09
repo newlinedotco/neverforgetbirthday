@@ -38,6 +38,10 @@ angular.module('bdayApp', [
         }
       })
       // Otherwise we'll set our homepage
+      .when('/deal', {
+        templateUrl: 'views/deal.html',
+        controller: 'DealCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

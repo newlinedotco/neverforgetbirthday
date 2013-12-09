@@ -3,6 +3,9 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 
 @import "bootstrap-sass/lib/bootstrap";
 
+.container {
+  width: 970px !important
+}
 .content {
   @extend .container;
 }
@@ -14,4 +17,11 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
   background-color:#5c7fe3;
   border-color:#5c7fe3;
+}
+
+.view-mobile {
+  display: none ;
+}
+.view-desktop {
+  display: block;
 }

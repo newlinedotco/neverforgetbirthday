@@ -1,17 +1,21 @@
-<ul class="list">
-  <li class="list-divider">
+<ul class="list list-group">
+  <li class="list-divider list-group-item">
     Deals near <span ng-bind="user.name"</span>
   </li>
-  <li ng-repeat="deal in deals">
-    <h3 ng-bind="deal.title"></h3>
-<div class="details">
-      <img 
+  <li ng-repeat="deal in deals" class="tile-photo list-group-item">
+    <a href="#/deal" ng-click="setDeal(deal)">
+      <img
         ng-src="{{ deal.grid6ImageUrl }}"
         ng-if="!touch" />
       <img
         ng-src="{{ deal.mediumImageUrl }}"
         ng-if="touch" />
       <p ng-bind="deal.description"></p>
-    </div>
+
+      <div class="details details-deal">
+        <h3 ng-bind="deal.title"></h3>
+      </div>
+    </a>
+    <!-- <pre>{{deal | json}}</pre> -->
   </li>
 </ul>

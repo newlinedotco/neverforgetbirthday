@@ -22,10 +22,10 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
     <!-- Splash screen -->
-    <div class="splash" ng-cloak>
+    <div class="splash view-mobile" ng-cloak>
         <p>Loading...</p>
     </div>
-    
+
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
@@ -38,9 +38,11 @@
     <!-- build:css(.tmp) styles/desktop.css -->
     <link rel="stylesheet" data-media="screen and (min-width: 979px)" data-href="styles/desktop.css" class="mediaquerydependent">
     <!-- endbuild -->
-    
-    <header class="bar-title">
-      <a class="button-prev" 
+
+
+    <!-- MOBILE HEADER -->
+    <header class="bar-title view-mobile" >
+      <a class="button-prev"
         href="#/"
         ng-show="hasPrevPage()">Previous
       </a>
@@ -54,6 +56,27 @@
         ng-click="logout()"
         class="button">Logout</a>
     </header>
+
+    <!-- DESKTOP HEADER -->
+    <div class="container view-desktop">
+     <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <!-- <li class="active"><a href="#">Home</a></li> -->
+          <li>
+            <a ng-show="!userLoggedIn"ng-click="login()"class="button">Login</a>
+          </li>
+          <li>
+            <a ng-show="userLoggedIn"ng-click="logout()"class="button">Logout</a>
+          </li>
+
+
+        </ul>
+        <a href="#" class="brand"><h3 class="text-muted">Desktop Version</h3></a>
+      </div>
+    </div>
+
+
+
 
     <!-- Add your site or application content here -->
     <div class="content" ng-view=""></div>
@@ -110,6 +133,8 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/share.js"></script>
         <script src="scripts/controllers/frame.js"></script>
+        <script src="scripts/controllers/deal.js"></script>
+        <script src="scripts/services/session.js"></script>
         <!-- endbuild -->
 </body>
 </html>

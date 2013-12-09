@@ -8,6 +8,7 @@ angular.module('bdayApp')
       FB.login('user_birthday,user_about_me,friends_birthday')
       .then(function(resp) {
         $scope.userLoggedIn = true;
+        $scope.$broadcast("user:login");
       })
     }
     FB.loggedIn().then(function() {
