@@ -42,7 +42,7 @@
 
 
     <!-- MOBILE HEADER -->
-    <header ng-if="touch" class="bar-title" >
+    <header class="bar-title view-mobile" >
       <a class="button-prev"
         href="#/"
         ng-show="hasPrevPage()">Previous
@@ -59,7 +59,7 @@
     </header>
 
     <!-- DESKTOP HEADER -->
-    <div ng-if="!touch" class="container">
+    <div class="container view-desktop">
      <div class="header">
         <ul class="nav nav-pills pull-right">
           <!-- <li class="active"><a href="#">Home</a></li> -->
@@ -76,11 +76,12 @@
       </div>
     </div>
 
-
-
-
     <!-- Add your site or application content here -->
-    <div class="content" 
+    <div
+      ng-class="{
+        'content': true,
+        '{{animationDirection}}': true
+      }",
       ng-view=""></div>
 
     <script>

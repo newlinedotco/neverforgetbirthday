@@ -21,43 +21,90 @@ body {
   display: none;
 }
 
-.view-animation {
-  &.left.ng-enter {-webkit-transform: translate3d(100%,0,0);}
-  &.left.ng-leave {-webkit-transform: translate3d(-100%,0,0);}
-  &.right.ng-enter {-webkit-transform: translate3d(-100%,0,0);}
-  &.right.ng-enter {-webkit-transform: translate3d(100%,0,0);}
+.left {
+  &.ng-enter, &.ng-leave {
+    background: inherit;
+    -ms-transition: .25s ease-in-out;
+    -webkit-transition: .25s ease-in-out;
+    transition: .25s ease-in-out;
+  }
+  &.ng-enter {
+    z-index: 101;
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    &.ng-enter-active {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+  }
+  &.ng-leave {
+    z-index: 100;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    &.ng-leave-active {
+      -webkit-transform: translateX(-100%);
+      transform: translateX(-100%);
+    }
+  }
 }
 
-.swipe-animation {
-  &.ng-animate.slide-left {
-    animation: slideLeftEnter 0.5s;
-    -webkit-animation: slideLeftEnter 0.5s;
+.right {
+  &.ng-enter, &.ng-leave {
+    background: inherit;
+    -ms-transition: .25s ease-in-out;
+    -webkit-transition: .25s ease-in-out;
+    transition: .25s ease-in-out;
   }
-  &.ng-animate.slide-left.slide-left-remove {
-    animation: slideLeftLeave 0.5s;
-    -webkit-animation: slideLeftLeave 0.5s;
+  &.ng-enter {
+    z-index: 100;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    &.ng-enter-active {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
   }
-  &.ng-animate.slide-right {
-    -webkit-animation: slideRightEnter 0.5s;
-  }
-  &.ng-animate.slide-right.slide-right-remove {
-    -webkit-animation: slideRightLeave 0.5s;
+  &.ng-leave {
+    z-index: 101;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    &.ng-leave-active {
+      -webkit-transform: translateX(100%);
+      transform: translateX(100%);
+    }
   }
 }
 
-@-webkit-keyframes slideLeftEnter {
-  0% { -webkit-transform: translateX(100%); }
-  100% { -webkit-transform: translateX(0); }
-}
-@-webkit-keyframes slideLeftLeave {
-  0% { -webkit-transform: translateX(0); }
-  100% { -webkit-transform: translateX(-100%); }
-}
-@-webkit-keyframes slideRightEnter {
-  0% { -webkit-transform: translateX(-100%); }
-  100% { -webkit-transform: translateX(0); }
-}
-@-webkit-keyframes slideRightLeave {
-  0% { -webkit-transform: translateX(0); }
-  100% { -webkit-transform: translateX(100%); }
-}
+// .swipe-animation {
+//   &.ng-animate.slide-left {
+//     animation: slideLeftEnter 0.5s;
+//     -webkit-animation: slideLeftEnter 0.5s;
+//   }
+//   &.ng-animate.slide-left.slide-left-remove {
+//     animation: slideLeftLeave 0.5s;
+//     -webkit-animation: slideLeftLeave 0.5s;
+//   }
+//   &.ng-animate.slide-right {
+//     -webkit-animation: slideRightEnter 0.5s;
+//   }
+//   &.ng-animate.slide-right.slide-right-remove {
+//     -webkit-animation: slideRightLeave 0.5s;
+//   }
+// }
+
+// @-webkit-keyframes slideLeftEnter {
+//   0% { -webkit-transform: translateX(100%); }
+//   100% { -webkit-transform: translateX(0); }
+// }
+// @-webkit-keyframes slideLeftLeave {
+//   0% { -webkit-transform: translateX(0); }
+//   100% { -webkit-transform: translateX(-100%); }
+// }
+// @-webkit-keyframes slideRightEnter {
+//   0% { -webkit-transform: translateX(-100%); }
+//   100% { -webkit-transform: translateX(0); }
+// }
+// @-webkit-keyframes slideRightLeave {
+//   0% { -webkit-transform: translateX(0); }
+//   100% { -webkit-transform: translateX(100%); }
+// }

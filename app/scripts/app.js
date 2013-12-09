@@ -64,6 +64,17 @@ angular.module('bdayApp', [
   .config(function(TouchDeviceProvider) {
     if (Modernizr.touch) TouchDeviceProvider.setTouchDevice();
   })
+  .run(function($rootScope, $window) {
+    $rootScope.animationDirection = '';
+    $rootScope.$on('$routeChangeStart', function(evt, next, curr) {
+      if (curr && next) {
+        if (curr.depth < next.depth)
+          $rootScope.animationDirection = 'left';
+        else
+          $rootScope.animationDirection = 'right';
+      }
+    })
+  })
   .run(function() {
     FastClick.attach(document.body);
   })
