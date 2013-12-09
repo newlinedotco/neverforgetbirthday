@@ -50,9 +50,7 @@ angular.module('alFacebook', [])
   // injecting the `$document`, `$timeout`,
   // `$q`, `$rootScope`, and `$window` services
   this.$get = function($document, $timeout, $q, $rootScope, $window) {
-    var  deferred = $q.defer(),
-      _FB = $window.FB,
-      self = this;
+    var  deferred = $q.defer();
 
     // Create a `fbAsyncInit` method that gets
     // called by the Facebook SDK after it is loaded
