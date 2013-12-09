@@ -21,6 +21,13 @@ body {
   display: none;
 }
 
+.view-animation {
+  &.left.ng-enter {-webkit-transform: translate3d(100%,0,0);}
+  &.left.ng-leave {-webkit-transform: translate3d(-100%,0,0);}
+  &.right.ng-enter {-webkit-transform: translate3d(-100%,0,0);}
+  &.right.ng-enter {-webkit-transform: translate3d(100%,0,0);}
+}
+
 .swipe-animation {
   &.ng-animate.slide-left {
     animation: slideLeftEnter 0.5s;

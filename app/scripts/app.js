@@ -25,12 +25,14 @@ angular.module('bdayApp', [
       // homepage
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        depth: 1
       })
       // We also define a share page
       .when('/share/:idx', {
         templateUrl: 'views/share.html',
         controller: 'ShareCtrl',
+        depth: 2,
         resolve: {
           shareUser: ['$route', 'FB', function($route, FB) {
             return FB.getUser($route.current.params.idx);
@@ -40,6 +42,7 @@ angular.module('bdayApp', [
       // Otherwise we'll set our homepage
       .when('/deal', {
         templateUrl: 'views/deal.html',
+        depth: 3,
         controller: 'DealCtrl'
       })
       .otherwise({

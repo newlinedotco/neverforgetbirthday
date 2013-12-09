@@ -42,7 +42,7 @@
 
 
     <!-- MOBILE HEADER -->
-    <header class="bar-title view-mobile" >
+    <header ng-if="touch" class="bar-title" >
       <a class="button-prev"
         href="#/"
         ng-show="hasPrevPage()">Previous
@@ -59,7 +59,7 @@
     </header>
 
     <!-- DESKTOP HEADER -->
-    <div class="container view-desktop">
+    <div ng-if="!touch" class="container">
      <div class="header">
         <ul class="nav nav-pills pull-right">
           <!-- <li class="active"><a href="#">Home</a></li> -->
@@ -80,7 +80,8 @@
 
 
     <!-- Add your site or application content here -->
-    <div class="content" ng-view=""></div>
+    <div class="content" 
+      ng-view=""></div>
 
     <script>
       function mediaqueryload(){

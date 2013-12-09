@@ -1,23 +1,24 @@
 'use strict';
 
 angular.module('bdayApp')
-  .controller('MainCtrl', function($rootScope, $scope, $filter, FB, Groupon) {
+  .controller('MainCtrl', function($rootScope, $scope, $q, $filter, FB, Groupon) {
 
     $scope.$on('user:login', function() {
       updateFriends();
     });
 
     // Set our default variables  
-    var offset = 0,
+    var currOffset = 0,
         limit = 64;
 
     // Basically just set our offset so that we
     // don't fetch negative friends
-    var sanitizeRequestFeatures = function() {
+    var sanitizeRequestFeatures = function(offset) {
       if (offset < 0) offset = 0;
     }
     // Update our friends list on the local scope
-    var updateFriends = function() {
+    var updateFriends = function(offset) {
+      var d = $q.defer();
       sanitizeRequestFeatures();
       FB.getFriends({
         fields: 'name,birthday,id,picture,location',
@@ -37,20 +38,41 @@ angular.module('bdayApp')
             arr.push(value);
           }
         });
-        $scope.friends = $filter('orderBy')(arr, 'birthday');
         $scope.loading = false;
+        d.resolve($filter('orderBy')(arr, 'birthday'));
       })
+      return d.promise;
     }
 
-    updateFriends();
+    updateFriends().then(function(friends) {
+      $scope.friends = friends;
+    })
     $scope.nextPage = function() {
       $scope.loading = 'next';
-      offset += limit;
-      updateFriends();
+      currOffset += limit;
+      updateFriends(currOffset)
+      .then(function(friends) {
+        $scope.friends = friends;
+      });
     }
     $scope.prevPage = function() {
       $scope.loading = 'prev';
-      offset -= limit;
-      updateFriends();
+      currOffset -= limit;
+      updateFriends(currOffset)
+      .then(function(friends) {
+        $scope.friends = friends;
+      });
+    }
+    $scope.preloadNext = function() {
+      updateFriends(currOffset+limit)
+      .then(function(nextFriends) {
+        $scope.nextFriends = nextFriends;
+      });
+    }
+    $scope.preloadPrev = function() {
+      updateFriends(currOffset-limit)
+      .then(function(nextFriends) {
+        $scope.nextFriends = nextFriends;
+      });
     }
   });
