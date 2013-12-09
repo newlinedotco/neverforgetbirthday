@@ -77,12 +77,10 @@
     </div>
 
     <!-- Add your site or application content here -->
-    <div
-      ng-class="{
-        'content': true,
-        '{{animationDirection}}': true
-      }",
-      ng-view=""></div>
+    <div class="content">
+      <div ng-class="animationDirection"
+        ng-view=""></div>
+    </div>
 
     <script>
       function mediaqueryload(){
