@@ -5,7 +5,7 @@ angular.module('bdayApp')
     $scope.touch = TouchDevice;
 
     $scope.login = function() {
-      FB.login('user_birthday,user_about_me,user_checkins,friends_checkins')
+      FB.login('user_birthday,user_about_me,friends_birthday')
       .then(function(resp) {
         $scope.userLoggedIn = true;
       })
