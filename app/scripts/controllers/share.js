@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bdayApp')
-  .controller('ShareCtrl', function($scope, $routeParams, shareUser, FB, Groupon, Session, $location) {
+  .controller('ShareCtrl', function($scope, $routeParams, shareUser, FB, Groupon, Session) {
     var conf = {};
 
     if (shareUser.location) {

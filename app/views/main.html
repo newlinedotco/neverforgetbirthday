@@ -25,16 +25,14 @@
     ng-class="{
       'swipe-animation': touch,
       'slide-left': loading === 'next',
-      'slide-right': loading === 'prev'}"
+      'slide-right': loading === 'prev'
+      }"
     class="col-xs-9"
     >
     <div id="team">
-      <div ng-show="loading" class="spinner">
-      </div>
-
-
-      <ul class="list list-group" ng-show="!loading">
-        <li class="tile-photo list-group-item" ng-repeat="friend in friends">
+      <ul class="list list-group">
+        <div ng-show="loading" class="spinner"></div>
+        <li class="tile-photo list-group-item" ng-repeat="friend in friends" ng-show="!loading">
           <a href="#/share/{{ friend.id }}">
 
             <img ng-src="https://graph.facebook.com/{{ friend.id }}/picture?type=square" class="round" alt="" />

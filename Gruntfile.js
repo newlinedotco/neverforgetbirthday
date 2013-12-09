@@ -15,7 +15,7 @@ module.exports = function (grunt) {
     yeoman: {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
-      dist: 'dist'
+      dist: 'dist/static'
     },
     watch: {
       coffee: {
@@ -270,6 +270,12 @@ module.exports = function (grunt) {
           src: [
             'generated/*'
           ]
+        },
+        {
+          expand: true,
+          cwd: '<%= yeoman.app %>',
+          dest: '<%= yeoman.dist %>/../',
+          src: ['app.yaml']
         }]
       },
       styles: {
@@ -363,7 +369,7 @@ module.exports = function (grunt) {
     'cdnify',
     'ngmin',
     'cssmin',
-    'uglify',
+    // 'uglify',
     'rev',
     'usemin'
   ]);

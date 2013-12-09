@@ -49,7 +49,8 @@ angular.module('alFacebook', [])
   // Create the FBService method
   // injecting the `$document`, `$timeout`,
   // `$q`, `$rootScope`, and `$window` services
-  this.$get = function($document, $timeout, $q, $rootScope, $window) {
+  this.$get = ['$document', '$timeout', '$q', '$rootScope', '$window', 
+    function($document, $timeout, $q, $rootScope, $window) {
     var  deferred = $q.defer();
 
     // Create a `fbAsyncInit` method that gets
@@ -76,7 +77,7 @@ angular.module('alFacebook', [])
     // Kick it off and get Facebooking
     createScript($document[0], onScriptLoad);
     return deferred.promise;
-   }
+   }]
 })
 // The FB Service
 // -----------------
@@ -90,7 +91,7 @@ angular.module('alFacebook', [])
 // or not immediately.
 .provider('FB', function() {
   // Define the service
-  this.$get = function($rootScope, $q, FBService) {
+  this.$get = ['$rootScope', '$q', 'FBService', function($rootScope, $q, FBService) {
     // We'll create a `loginDefer` object that
     // will enable us to depend upon the user
     // being logged in when this resolves.
@@ -215,5 +216,5 @@ angular.module('alFacebook', [])
       }
     }
     return service;
-  }
+  }]
 })

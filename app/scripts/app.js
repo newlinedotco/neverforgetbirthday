@@ -32,9 +32,9 @@ angular.module('bdayApp', [
         templateUrl: 'views/share.html',
         controller: 'ShareCtrl',
         resolve: {
-          shareUser: function($route, FB) {
+          shareUser: ['$route', 'FB', function($route, FB) {
             return FB.getUser($route.current.params.idx);
-          }
+          }]
         }
       })
       // Otherwise we'll set our homepage

@@ -29,9 +29,10 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    
+    <link rel="stylesheet" data-media="screen and (max-width: 979px)" data-href="bower_components/ratchet/dist/ratchet.css" class="mediaquerydependent">
 
     <!-- build:css(.tmp) styles/mobile.css -->
-    <link rel="stylesheet" data-media="screen and (max-width: 979px)" data-href="bower_components/ratchet/dist/ratchet.css" class="mediaquerydependent">
     <link rel="stylesheet" data-media="screen and (max-width: 979px)" data-href="styles/mobile.css" class="mediaquerydependent">
     <!-- endbuild -->
 
@@ -121,12 +122,12 @@
         <script src="bower_components/angular-bindonce/bindonce.js"></script>
         <script src="bower_components/angular-touch/angular-touch.js"></script>
         <script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular-cache/dist/angular-cache.js"></script>
         <script src="bower_components/fastclick/lib/fastclick.js"></script>
         <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/services/facebook.js"></script>
-        <script src="scripts/services/sqoot.js"></script>
         <script src="scripts/services/groupon.js"></script>
         <script src="scripts/services/touch_device.js"></script>
         <script src="scripts/app.js"></script>

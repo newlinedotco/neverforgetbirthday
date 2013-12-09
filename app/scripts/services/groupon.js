@@ -1,13 +1,13 @@
 angular.module('alGroupon', [])
 .provider('Groupon', function() {
   var api_key = '',
-      baseUrl = 'http://api.groupon.com/v2';
+      baseUrl = '//api.groupon.com/v2';
 
   this.setApiKey = function(key) {
     api_key = key || api_key
   }
 
-  this.$get = function($q, $http) {
+  this.$get = ['$q', '$http', function($q, $http) {
     var service = {
       // Get all deals
       getDeals: function(conf) {
@@ -52,6 +52,6 @@ angular.module('alGroupon', [])
     }
 
     return service;
-  }
+  }]
 
 })
