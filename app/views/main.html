@@ -32,13 +32,13 @@
     <div id="team">
       <ul class="list list-group">
         <div ng-show="loading" class="spinner"></div>
-        <li class="tile-photo list-group-item" ng-repeat="friend in friends" ng-show="!loading">
-          <a href="#/share/{{ friend.id }}">
+        <li bindonce class="tile-photo list-group-item" ng-repeat="friend in friends" ng-show="!loading">
+          <a bo-href="'#/share/' + friend.id">
 
-            <img ng-src="https://graph.facebook.com/{{ friend.id }}/picture?type=square" class="round" alt="" />
+            <img bo-src="'https://graph.facebook.com/'+friend.id+'/picture?type=square'" class="round" alt="" />
             <div class="details">
-              <h3 ng-bind="friend.name"></h3>
-              <small ng-bind="friend.formatted_birthday"></small>
+              <h3 bo-text="friend.name"></h3>
+              <small ng-text="friend.formatted_birthday"></small>
             </div>
 
             <span class="chevron"></span>

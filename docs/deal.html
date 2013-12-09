@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>flicker.js</title>
+  <title>deal.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -96,7 +96,7 @@
         
           <li id="title">
               <div class="annotation">
-                  <h1>flicker.js</h1>
+                  <h1>deal.js</h1>
               </div>
           </li>
         
@@ -108,36 +108,18 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <p>/feeds/photos_public.gne?format=json</p>
-
+              
             </div>
             
-            <div class="content"><div class='highlight'><pre>angular.module(<span class="string">'alFlicker'</span>, [])
-.provider(<span class="string">'Flicker'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-  <span class="keyword">var</span> base = <span class="string">'http://api.flickr.com/services'</span>;
+            <div class="content"><div class='highlight'><pre><span class="string">'use strict'</span>;
 
-  <span class="keyword">this</span>.$get = <span class="function"><span class="keyword">function</span><span class="params">($q, $http)</span> {</span>
-    <span class="keyword">var</span> service = {
-      getPublicFeed: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-        <span class="keyword">var</span> d = $q.defer();
-        $http({
-          method: <span class="string">'JSONP'</span>,
-          url: base + <span class="string">'/feeds/photos_public.gne?format=json'</span>,
-          params: {
-            <span class="string">'jsoncallback'</span>: <span class="string">'JSON_CALLBACK'</span>
-          }
-        }).success(<span class="function"><span class="keyword">function</span><span class="params">(data)</span> {</span>
-          d.resolve(data);
-        }).error(<span class="function"><span class="keyword">function</span><span class="params">(reason)</span> {</span>
-          d.reject(reason);
-        })
-        <span class="keyword">return</span> d.promise;
-      }
-    };
+angular.module(<span class="string">'bdayApp'</span>)
+  .controller(<span class="string">'DealCtrl'</span>, <span class="function"><span class="keyword">function</span> <span class="params">($scope, Session)</span> {</span>
 
-    <span class="keyword">return</span> service;
-  }
-})</pre></div></div>
+    $scope.deal = Session.currentDeal;
+    $scope.user = Session.currentUser;
+
+  });</pre></div></div>
             
         </li>
         

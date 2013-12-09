@@ -24,6 +24,11 @@
               </a>
             
               
+              <a class="source" href="deal.html">
+                deal.js
+              </a>
+            
+              
               <a class="source" href="frame.html">
                 frame.js
               </a>
@@ -61,6 +66,11 @@
               
               <a class="source" href="groupon.html">
                 groupon.js
+              </a>
+            
+              
+              <a class="source" href="session.html">
+                session.js
               </a>
             
               
@@ -125,7 +135,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>The FBService is responsible for loading 
+              <p>The FBService is responsible for loading
 the Facebook JavaScript SDK
 and that&#39;s all
 It serves the FB window object in the form
@@ -141,7 +151,12 @@ service by:</p>
             <div class="content"><div class='highlight'><pre>.provider(<span class="string">'FBService'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
   <span class="keyword">var</span> _scriptUrl = <span class="string">'//connect.facebook.net/en_US/all.js'</span>
   , _scriptId = <span class="string">'facebook-jssdk'</span>
-  , _fbConfig = <span class="literal">null</span>;</pre></div></div>
+  , _fbConfig = <span class="literal">null</span>;
+
+  <span class="keyword">this</span>.init = <span class="function"><span class="keyword">function</span><span class="params">(config)</span> {</span>
+    _fbConfig = config || _fbConfig;
+    <span class="keyword">return</span> <span class="keyword">this</span>;
+  }</pre></div></div>
             
         </li>
         
@@ -151,24 +166,6 @@ service by:</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
-              </div>
-              <p>Set up a </p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>  <span class="keyword">this</span>.init = <span class="function"><span class="keyword">function</span><span class="params">(config)</span> {</span>
-    _fbConfig = config || _fbConfig;
-    <span class="keyword">return</span> <span class="keyword">this</span>;
-  }</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-5">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               <p>Create a script tag with moment as the source
 and call our onScriptLoad callback when it
@@ -191,11 +188,11 @@ has been loaded</p>
         </li>
         
         
-        <li id="section-6">
+        <li id="section-5">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-6">&#182;</a>
+                <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               <p>Set the callback to be run
 after the scriptTag has loaded</p>
@@ -207,11 +204,11 @@ after the scriptTag has loaded</p>
         </li>
         
         
-        <li id="section-7">
+        <li id="section-6">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
               <p>Attach the script tag to the document body</p>
 
@@ -224,31 +221,30 @@ after the scriptTag has loaded</p>
         </li>
         
         
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Create the FBService method
+injecting the <code>$document</code>, <code>$timeout</code>,
+<code>$q</code>, <code>$rootScope</code>, and <code>$window</code> services</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">this</span>.$get = [<span class="string">'$document'</span>, <span class="string">'$timeout'</span>, <span class="string">'$q'</span>, <span class="string">'$rootScope'</span>, <span class="string">'$window'</span>, 
+    <span class="function"><span class="keyword">function</span><span class="params">($document, $timeout, $q, $rootScope, $window)</span> {</span>
+    <span class="keyword">var</span>  deferred = $q.defer();</pre></div></div>
+            
+        </li>
+        
+        
         <li id="section-8">
             <div class="annotation">
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
-              </div>
-              <p>Create the FBService method
-injecting the <code>$document</code>, <code>$timeout</code>, 
-<code>$q</code>, <code>$rootScope</code>, and <code>$window</code> services</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>  <span class="keyword">this</span>.$get = <span class="function"><span class="keyword">function</span><span class="params">($document, $timeout, $q, $rootScope, $window)</span> {</span>
-    <span class="keyword">var</span>  deferred = $q.defer(),
-      _FB = $window.FB,
-      self = <span class="keyword">this</span>;</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-9">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               <p>Create a <code>fbAsyncInit</code> method that gets
 called by the Facebook SDK after it is loaded</p>
@@ -261,11 +257,11 @@ called by the Facebook SDK after it is loaded</p>
         </li>
         
         
-        <li id="section-10">
+        <li id="section-9">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               <p>Executed when the SDK is loaded</p>
 
@@ -278,11 +274,11 @@ called by the Facebook SDK after it is loaded</p>
         </li>
         
         
-        <li id="section-11">
+        <li id="section-10">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
               <p>Load client in the browser
 which will get called after the script
@@ -297,11 +293,11 @@ tag has been loaded</p>
         </li>
         
         
-        <li id="section-12">
+        <li id="section-11">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
               <p>Resolve the deferred promise
 as the FB object on the window</p>
@@ -315,11 +311,11 @@ as the FB object on the window</p>
         </li>
         
         
-        <li id="section-13">
+        <li id="section-12">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
               <p>Kick it off and get Facebooking</p>
 
@@ -327,8 +323,21 @@ as the FB object on the window</p>
             
             <div class="content"><div class='highlight'><pre>    createScript($document[<span class="number">0</span>], onScriptLoad);
     <span class="keyword">return</span> deferred.promise;
-   }
+   }]
 })</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h2 id="the-fb-service">The FB Service</h2>
+
+            </div>
             
         </li>
         
@@ -338,19 +347,6 @@ as the FB object on the window</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-14">&#182;</a>
-              </div>
-              <h2 id="the-fb-service">The FB Service</h2>
-
-            </div>
-            
-        </li>
-        
-        
-        <li id="section-15">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               <p>This service wraps the FB object in more helpful
 methods that are more angular-friendly with promises</p>
@@ -366,26 +362,26 @@ or not immediately.</p>
         </li>
         
         
-        <li id="section-16">
+        <li id="section-15">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-16">&#182;</a>
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               <p>Define the service</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="keyword">this</span>.$get = <span class="function"><span class="keyword">function</span><span class="params">($rootScope, $q, FBService)</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">this</span>.$get = [<span class="string">'$rootScope'</span>, <span class="string">'$q'</span>, <span class="string">'FBService'</span>, <span class="function"><span class="keyword">function</span><span class="params">($rootScope, $q, FBService)</span> {</span></pre></div></div>
             
         </li>
         
         
-        <li id="section-17">
+        <li id="section-16">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-17">&#182;</a>
+                <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
               <p>We&#39;ll create a <code>loginDefer</code> object that
 will enable us to depend upon the user
@@ -402,13 +398,13 @@ to resolve</p>
         </li>
         
         
-        <li id="section-18">
+        <li id="section-17">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-18">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
-              <p>On init, we&#39;ll attach to the 
+              <p>On init, we&#39;ll attach to the
 <code>auth.authResponseChange</code> event
 If the auth status comes back with a status
 of <code>connected</code>, then we&#39;ll resolve the
@@ -417,7 +413,7 @@ login defer object immediately</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>    FBService.then(<span class="function"><span class="keyword">function</span><span class="params">(fb)</span> {</span>
-      fb.Event.subscribe(<span class="string">'auth.authResponseChange'</span>, 
+      fb.Event.subscribe(<span class="string">'auth.authResponseChange'</span>,
         <span class="function"><span class="keyword">function</span><span class="params">(res)</span> {</span>
           <span class="keyword">if</span> (res.status === <span class="string">'connected'</span>) {
             loginDefer.resolve(res);
@@ -428,11 +424,11 @@ login defer object immediately</p>
         </li>
         
         
-        <li id="section-19">
+        <li id="section-18">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-19">&#182;</a>
+                <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
               <p>Define the service object</p>
 
@@ -444,7 +440,7 @@ login defer object immediately</p>
         loginPromise = loginDefer.promise;
 
         FBService.then(<span class="function"><span class="keyword">function</span><span class="params">(fb)</span> {</span>
-          fb.Event.subscribe(<span class="string">'auth.authResponseChange'</span>, 
+          fb.Event.subscribe(<span class="string">'auth.authResponseChange'</span>,
             <span class="function"><span class="keyword">function</span><span class="params">(res)</span> {</span>
               <span class="keyword">if</span>(res.status === <span class="string">'connected'</span>) {
                 localStorage.setItem(<span class="string">'auth'</span>, JSON.stringify(res));
@@ -504,12 +500,30 @@ login defer object immediately</p>
           });
         });
         <span class="keyword">return</span> d.promise;
-      },
-      getUser: <span class="function"><span class="keyword">function</span><span class="params">(id)</span> {</span>
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Get more details about a facebook user
+by their id or their username</p>
+<p>Usage:
+FB.getUser(1234567)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      getUser: <span class="function"><span class="keyword">function</span><span class="params">(id)</span> {</span>
         <span class="keyword">var</span> d = $q.defer();
         FBService.then(<span class="function"><span class="keyword">function</span><span class="params">(fb)</span> {</span>
           fb.api(<span class="string">'/'</span> + id, <span class="function"><span class="keyword">function</span><span class="params">(resp)</span> {</span>
-            d.resolve(resp);
+            <span class="keyword">if</span> (resp.error) d.reject(resp);
+            <span class="keyword">else</span> d.resolve(resp);
           });
         })
         <span class="keyword">return</span> d.promise;
@@ -532,7 +546,7 @@ login defer object immediately</p>
       }
     }
     <span class="keyword">return</span> service;
-  }
+  }]
 })</pre></div></div>
             
         </li>

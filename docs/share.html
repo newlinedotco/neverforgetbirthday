@@ -24,6 +24,11 @@
               </a>
             
               
+              <a class="source" href="deal.html">
+                deal.js
+              </a>
+            
+              
               <a class="source" href="frame.html">
                 frame.js
               </a>
@@ -61,6 +66,11 @@
               
               <a class="source" href="groupon.html">
                 groupon.js
+              </a>
+            
+              
+              <a class="source" href="session.html">
+                session.js
               </a>
             
               
@@ -104,23 +114,22 @@
             <div class="content"><div class='highlight'><pre><span class="string">'use strict'</span>;
 
 angular.module(<span class="string">'bdayApp'</span>)
-  .controller(<span class="string">'ShareCtrl'</span>, <span class="function"><span class="keyword">function</span><span class="params">($scope, $routeParams, FB, Groupon)</span> {</span>
+  .controller(<span class="string">'ShareCtrl'</span>, <span class="function"><span class="keyword">function</span><span class="params">($scope, $routeParams, shareUser, FB, Groupon, Session)</span> {</span>
+    <span class="keyword">var</span> conf = {};
 
-    FB.getUser($routeParams.idx)
-    .then(<span class="function"><span class="keyword">function</span><span class="params">(user)</span> {</span>
-      <span class="keyword">var</span> conf = {};
+    <span class="keyword">if</span> (shareUser.location) {
+      conf[<span class="string">'location'</span>] = shareUser.location.name;
+    }
+    Groupon.getDeals(conf)
+    .then(<span class="function"><span class="keyword">function</span><span class="params">(deal)</span> {</span>
+      $scope.deals = deal.deals;
+    });
+    $scope.user = shareUser;
 
-      <span class="keyword">if</span> (user.location) {
-        conf[<span class="string">'location'</span>] = user.location.name;
-      }
-      Groupon.getDeals(conf)
-      .then(<span class="function"><span class="keyword">function</span><span class="params">(deal)</span> {</span>
-        $scope.deals = deal.deals;
-      });
-      $scope.user = user;
-    })
-
-    console.log(Modernizr.touch);
+    $scope.setDeal = <span class="function"><span class="keyword">function</span><span class="params">(deal)</span> {</span>
+      Session.setCurrentDeal(deal);
+      Session.setCurrentUser($scope.user);
+    }
 
     $scope.shareWith = <span class="function"><span class="keyword">function</span><span class="params">(id)</span> {</span>
       <span class="keyword">var</span> conf = {
@@ -128,7 +137,6 @@ angular.module(<span class="string">'bdayApp'</span>)
         link: $scope.deal.untracked_url,
         to: id
       }
-      console.log(conf, $scope.deal);
       FB.ui(conf);
     }
 

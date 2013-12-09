@@ -24,6 +24,11 @@
               </a>
             
               
+              <a class="source" href="deal.html">
+                deal.js
+              </a>
+            
+              
               <a class="source" href="frame.html">
                 frame.js
               </a>
@@ -61,6 +66,11 @@
               
               <a class="source" href="groupon.html">
                 groupon.js
+              </a>
+            
+              
+              <a class="source" href="session.html">
+                session.js
               </a>
             
               
@@ -104,14 +114,14 @@
             <div class="content"><div class='highlight'><pre><span class="string">'use strict'</span>;
 
 angular.module(<span class="string">'bdayApp'</span>)
-  .controller(<span class="string">'FrameCtrl'</span>, <span class="function"><span class="keyword">function</span> <span class="params">($scope, FB, TouchDevice)</span> {</span>
+  .controller(<span class="string">'FrameCtrl'</span>, <span class="function"><span class="keyword">function</span> <span class="params">($scope, $location, FB, TouchDevice)</span> {</span>
     $scope.touch = TouchDevice;
 
     $scope.login = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-      FB.login(<span class="string">'user_birthday,user_about_me,user_checkins,friends_checkins'</span>)
+      FB.login(<span class="string">'user_birthday,user_about_me,friends_birthday'</span>)
       .then(<span class="function"><span class="keyword">function</span><span class="params">(resp)</span> {</span>
-        console.log(<span class="string">"GOT"</span>, resp);
         $scope.userLoggedIn = <span class="literal">true</span>;
+        $scope.$broadcast(<span class="string">"user:login"</span>);
       })
     }
     FB.loggedIn().then(<span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
@@ -127,6 +137,12 @@ angular.module(<span class="string">'bdayApp'</span>)
         $scope.profile = {}
       })
     }
+
+    $scope.hasPrevPage = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+      <span class="keyword">if</span> ($location.path() != <span class="string">"/"</span>) <span class="keyword">return</span> <span class="literal">true</span>;
+      <span class="keyword">return</span> <span class="literal">false</span>;
+    }
+
   });</pre></div></div>
             
         </li>

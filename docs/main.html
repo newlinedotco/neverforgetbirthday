@@ -24,6 +24,11 @@
               </a>
             
               
+              <a class="source" href="deal.html">
+                deal.js
+              </a>
+            
+              
               <a class="source" href="frame.html">
                 frame.js
               </a>
@@ -61,6 +66,11 @@
               
               <a class="source" href="groupon.html">
                 groupon.js
+              </a>
+            
+              
+              <a class="source" href="session.html">
+                session.js
               </a>
             
               
@@ -104,7 +114,11 @@
             <div class="content"><div class='highlight'><pre><span class="string">'use strict'</span>;
 
 angular.module(<span class="string">'bdayApp'</span>)
-  .controller(<span class="string">'MainCtrl'</span>, <span class="function"><span class="keyword">function</span><span class="params">($scope, $filter, FB, Groupon)</span> {</span></pre></div></div>
+  .controller(<span class="string">'MainCtrl'</span>, <span class="function"><span class="keyword">function</span><span class="params">($rootScope, $scope, $filter, FB, Groupon)</span> {</span>
+
+    $scope.$on(<span class="string">'user:login'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+      updateFriends();
+    });</pre></div></div>
             
         </li>
         
@@ -115,60 +129,12 @@ angular.module(<span class="string">'bdayApp'</span>)
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>FB.getProfile()
-.then(function(profile) {
-  var split = profile.birthday.split(&#39;/&#39;),
-      month = split[0] - 1,
-      day   = split[1],
-      year  = split[2] || new Date().getFullYear();</p>
-<p>  profile[&#39;birthday&#39;] = new Date(year, month, day);
-  profile[&#39;formatted_birthday&#39;] = $filter(&#39;date&#39;)(profile[&#39;birthday&#39;], &#39;MMMM d&#39;);
-  $scope.profile = profile;</p>
+              <p>Set our default variables  </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="keyword">var</span> offset = <span class="number">0</span>,
-          limit = <span class="number">64</span>;
-
-      <span class="keyword">var</span> sanitizeRequestFeatures = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-        <span class="keyword">if</span> (offset &lt; <span class="number">0</span>) offset = <span class="number">0</span>;
-      }
-      <span class="keyword">var</span> updateFriends = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-        sanitizeRequestFeatures();
-        FB.getFriends({
-          fields: <span class="string">'name,birthday,id,picture,location'</span>,
-          limit: limit,
-          offset: offset
-        })
-        .then(<span class="function"><span class="keyword">function</span><span class="params">(friends)</span> {</span>
-          <span class="keyword">var</span> arr = []
-          angular.forEach(friends, <span class="function"><span class="keyword">function</span><span class="params">(value, key)</span>{</span>
-            <span class="keyword">if</span> (value.birthday) {
-              <span class="keyword">var</span> split = value.birthday.split(<span class="string">'/'</span>),
-                  month = split[<span class="number">0</span>],
-                  day   = split[<span class="number">1</span>],
-                  year  = split[<span class="number">2</span>] || <span class="keyword">new</span> Date().getFullYear();
-              value[<span class="string">'birthday'</span>] = <span class="keyword">new</span> Date(year, month, day);
-              value[<span class="string">'formatted_birthday'</span>] = $filter(<span class="string">'date'</span>)(value[<span class="string">'birthday'</span>], <span class="string">'MMMM dd'</span>)
-              arr.push(value);
-            }
-          });
-          $scope.friends = $filter(<span class="string">'orderBy'</span>)(arr, <span class="string">'birthday'</span>);
-          $scope.loading = <span class="literal">false</span>;
-        })
-      }
-
-      updateFriends();
-      $scope.nextPage = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-        $scope.loading = <span class="string">'next'</span>;
-        offset += limit;
-        updateFriends();
-      }
-      $scope.prevPage = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-        $scope.loading = <span class="string">'prev'</span>;
-        offset -= limit;
-        updateFriends();
-      }</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> offset = <span class="number">0</span>,
+        limit = <span class="number">64</span>;</pre></div></div>
             
         </li>
         
@@ -179,20 +145,65 @@ angular.module(<span class="string">'bdayApp'</span>)
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>Groupon.getDeals({
-  location: profile.location.name,
-  radius: 50
-}).then(function(data) {
-  console.log(data);
-  $scope.deals = data.deals;
-}, function(err) {
-  console.error(err);
-});
-});</p>
+              <p>Basically just set our offset so that we
+don&#39;t fetch negative friends</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  });</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> sanitizeRequestFeatures = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+      <span class="keyword">if</span> (offset &lt; <span class="number">0</span>) offset = <span class="number">0</span>;
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Update our friends list on the local scope</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> updateFriends = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+      sanitizeRequestFeatures();
+      FB.getFriends({
+        fields: <span class="string">'name,birthday,id,picture,location'</span>,
+        limit: limit,
+        offset: offset
+      })
+      .then(<span class="function"><span class="keyword">function</span><span class="params">(friends)</span> {</span>
+        <span class="keyword">var</span> arr = []
+        angular.forEach(friends, <span class="function"><span class="keyword">function</span><span class="params">(value, key)</span>{</span>
+          <span class="keyword">if</span> (value.birthday) {
+            <span class="keyword">var</span> split = value.birthday.split(<span class="string">'/'</span>),
+                month = split[<span class="number">0</span>],
+                day   = split[<span class="number">1</span>],
+                year  = split[<span class="number">2</span>] || <span class="keyword">new</span> Date().getFullYear();
+            value[<span class="string">'birthday'</span>] = <span class="keyword">new</span> Date(year, month, day);
+            value[<span class="string">'formatted_birthday'</span>] = $filter(<span class="string">'date'</span>)(value[<span class="string">'birthday'</span>], <span class="string">'MMMM dd'</span>)
+            arr.push(value);
+          }
+        });
+        $scope.friends = $filter(<span class="string">'orderBy'</span>)(arr, <span class="string">'birthday'</span>);
+        $scope.loading = <span class="literal">false</span>;
+      })
+    }
+
+    updateFriends();
+    $scope.nextPage = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+      $scope.loading = <span class="string">'next'</span>;
+      offset += limit;
+      updateFriends();
+    }
+    $scope.prevPage = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+      $scope.loading = <span class="string">'prev'</span>;
+      offset -= limit;
+      updateFriends();
+    }
+  });</pre></div></div>
             
         </li>
         

@@ -24,6 +24,11 @@
               </a>
             
               
+              <a class="source" href="deal.html">
+                deal.js
+              </a>
+            
+              
               <a class="source" href="frame.html">
                 frame.js
               </a>
@@ -61,6 +66,11 @@
               
               <a class="source" href="groupon.html">
                 groupon.js
+              </a>
+            
+              
+              <a class="source" href="session.html">
+                session.js
               </a>
             
               
@@ -193,7 +203,12 @@ homepage</p>
             
             <div class="content"><div class='highlight'><pre>      .when(<span class="string">'/share/:idx'</span>, {
         templateUrl: <span class="string">'views/share.html'</span>,
-        controller: <span class="string">'ShareCtrl'</span>
+        controller: <span class="string">'ShareCtrl'</span>,
+        resolve: {
+          shareUser: [<span class="string">'$route'</span>, <span class="string">'FB'</span>, <span class="function"><span class="keyword">function</span><span class="params">($route, FB)</span> {</span>
+            <span class="keyword">return</span> FB.getUser($route.current.params.idx);
+          }]
+        }
       })</pre></div></div>
             
         </li>
@@ -209,7 +224,11 @@ homepage</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      .otherwise({
+            <div class="content"><div class='highlight'><pre>      .when(<span class="string">'/deal'</span>, {
+        templateUrl: <span class="string">'views/deal.html'</span>,
+        controller: <span class="string">'DealCtrl'</span>
+      })
+      .otherwise({
         redirectTo: <span class="string">'/'</span>
       });
   })
@@ -239,8 +258,7 @@ homepage</p>
     GrouponProvider.setApiKey(<span class="string">'01989e50ac648b3056ccc30231300f14c5da8c90'</span>);
   })
   .config(<span class="function"><span class="keyword">function</span><span class="params">(TouchDeviceProvider)</span> {</span>
-    <span class="keyword">if</span> (Modernizr.touch)
-      TouchDeviceProvider.setTouchDevice();
+    <span class="keyword">if</span> (Modernizr.touch) TouchDeviceProvider.setTouchDevice();
   })
   .run(<span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     FastClick.attach(document.body);

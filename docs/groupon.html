@@ -24,6 +24,11 @@
               </a>
             
               
+              <a class="source" href="deal.html">
+                deal.js
+              </a>
+            
+              
               <a class="source" href="frame.html">
                 frame.js
               </a>
@@ -61,6 +66,11 @@
               
               <a class="source" href="groupon.html">
                 groupon.js
+              </a>
+            
+              
+              <a class="source" href="session.html">
+                session.js
               </a>
             
               
@@ -104,13 +114,13 @@
             <div class="content"><div class='highlight'><pre>angular.module(<span class="string">'alGroupon'</span>, [])
 .provider(<span class="string">'Groupon'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
   <span class="keyword">var</span> api_key = <span class="string">''</span>,
-      baseUrl = <span class="string">'http://api.groupon.com/v2'</span>;
+      baseUrl = <span class="string">'//api.groupon.com/v2'</span>;
 
   <span class="keyword">this</span>.setApiKey = <span class="function"><span class="keyword">function</span><span class="params">(key)</span> {</span>
     api_key = key || api_key
   }
 
-  <span class="keyword">this</span>.$get = <span class="function"><span class="keyword">function</span><span class="params">($q, $http)</span> {</span>
+  <span class="keyword">this</span>.$get = [<span class="string">'$q'</span>, <span class="string">'$http'</span>, <span class="function"><span class="keyword">function</span><span class="params">($q, $http)</span> {</span>
     <span class="keyword">var</span> service = {</pre></div></div>
             
         </li>
@@ -243,7 +253,7 @@ in the config object</p>
     }
 
     <span class="keyword">return</span> service;
-  }
+  }]
 
 })</pre></div></div>
             
