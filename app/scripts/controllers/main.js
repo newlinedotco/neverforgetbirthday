@@ -39,14 +39,23 @@ angular.module('bdayApp')
           }
         });
         $scope.loading = false;
-        d.resolve($filter('orderBy')(arr, 'birthday'));
+        var output = $filter('orderBy')(arr, 'birthday');
+        localStorage.setItem('friends-'+offset, JSON.stringify(output));
+        d.resolve(output);
       })
       return d.promise;
     }
 
-    updateFriends().then(function(friends) {
-      $scope.friends = friends;
-    })
+    var ls = localStorage.getItem('friends-'+currOffset);
+    if (!ls) {
+      updateFriends(currOffset)
+      .then(function(friends) {
+        $scope.friends = friends;
+      });
+    } else {
+      $scope.friends = JSON.parse(ls);
+    }
+
     $scope.nextPage = function() {
       $scope.loading = 'next';
       currOffset += limit;
@@ -63,16 +72,5 @@ angular.module('bdayApp')
         $scope.friends = friends;
       });
     }
-    $scope.preloadNext = function() {
-      updateFriends(currOffset+limit)
-      .then(function(nextFriends) {
-        $scope.nextFriends = nextFriends;
-      });
-    }
-    $scope.preloadPrev = function() {
-      updateFriends(currOffset-limit)
-      .then(function(nextFriends) {
-        $scope.nextFriends = nextFriends;
-      });
-    }
+
   });
